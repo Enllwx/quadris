@@ -1,11 +1,3 @@
-//
-//  score.cpp
-//  object
-//
-//  Created by Enllwx on 2018-07-12.
-//  Copyright © 2018 Enllwx. All rights reserved.
-//
-
 #include "score.h"
 
 // return the mas scare so far
