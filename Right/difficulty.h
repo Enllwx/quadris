@@ -1,5 +1,5 @@
-#ifndef difficulty_hpp
-#define difficulty_hpp
+#ifndef DIFFICULTY_H
+#define DIFFICULTY_H
 
 #include "type.h"
 
@@ -13,4 +13,4 @@ protected:
     void moveRight(Block & b) = 0;
 };
 
-#endif /* difficulty_hpp */
+#endif /* difficulty_h */
