@@ -2,11 +2,39 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include "grid.h"
 using namespace std;
 
-ifstream infile( "sequence.txt" );
-
 int main(int argc, const char * argv[]) {
+    Grid g;
+    
+    // first check the argument command
+    int TextOnly = 0;
+    int StartLevel = 0;
+    string InputFile = "sequence.txt";
+    string SeedEqual = "false";
+        // if seed is 0, it will be same random value
+    
+    for (int i=1; i<argc; i++){
+        
+        if (string(argv[i]) == "-text"){
+            TextOnly = true;
+        }
+        else if (string(argv[i]) == "-seed"){
+            SeedEqual = argv[i+1];
+        }
+        else if (string(argv[i]) == "-scriptfile"){
+            InputFile = argv[i+1];
+        }
+        else if (string(argv[i]) == "-startlevel"){
+            istringstream num(argv[i+1]);
+            num >> StartLevel;
+        }
+        
+    }
+    
+    // set input file
+    ifstream infile( InputFile );
     
     //grid g; // board
     string cmd;
