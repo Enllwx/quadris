@@ -11,7 +11,7 @@ enum class State {occuped, temp, empty};
 struct Cell {
     const int x;
     const int y;
-    char type;
+    char type = '-';
     State state = State::empty;  // defualt type: empty
 };
 

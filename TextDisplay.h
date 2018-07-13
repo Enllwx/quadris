@@ -2,16 +2,16 @@
 #define TEXTDISPLAY_H
 
 #include <vector>
-#include <iostream>
+#include "score.h"
 #include "type.h"
 
-class TextDisplay: public Observer<Info, State> {
+class TextDisplay {
     std::vector<std::vector<char*>> board;
 protected:
     // ctor
-    TextDisplay(vector <vector <Cell*>> &board);
+    TextDisplay(std::vector <std::vector <Cell*>> &board);
     // erase the first linNum vectors in board
     void update(int lineNum = 1);
-    friend std::ostream &operator<<(std::ostream &out, const TextDisplay &td);
+    void printText(int lvl, Shape NexBlock, scoreCounter* s) const;
 };
 #endif /* TextDisplay_h */
