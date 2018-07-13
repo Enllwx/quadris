@@ -1,9 +1,17 @@
+//
+//  grid.hpp
+//  object
+//
+//  Created by Enllwx on 2018-07-12.
+//  Copyright © 2018 Enllwx. All rights reserved.
+//
+
 #ifndef GRID.H
 #define GRID.H
 
-#include <vector>
 #include "type.h"
 #include "grid.h"
+#include <vector>
 using namespace std;
 
 class Grid {
@@ -30,5 +38,4 @@ public:
     friend operator<<(std::ostream &out, const Grid &g);
 }
 
-#endif /* grid_h */
-
+#endif /* grid_hpp */

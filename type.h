@@ -15,4 +15,9 @@ struct Cell {
     State state = State::empty;  // defualt type: empty
 };
 
+struct Block {
+    Cell *area[4];
+    Shape type = Shape::Iblock;
+};
+
 #endif /* type.h */

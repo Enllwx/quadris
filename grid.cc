@@ -3,7 +3,7 @@
 using namespace std;
 
 class Grid {
-    int difficultyLevel;
+    int *difficultyLevel;
     vector <vector <Cell*>> board;
     BlockHolder* theHolder;
     TextDisplay* td;
