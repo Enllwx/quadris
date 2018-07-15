@@ -1,8 +1,9 @@
-#ifndef DIFFICULTY_H
-#define DIFFICULTY_H
+#ifndef difficulty_hpp
+#define difficulty_hpp
 
 #include "type.h"
 
+// abstract class
 class Difficulty {
 protected:
     Block newBlock() = 0;
@@ -13,4 +14,4 @@ protected:
     void moveRight(Block & b) = 0;
 };
 
-#endif /* difficulty_h */
+#endif /* difficulty_hpp */

@@ -4,6 +4,7 @@
 using namespace std;
 
 
+levelZero::levelZero(std::vector <std::vector <Cell*>>& board):{}
 Block levelZero::newBlock(){}
 void levelZero::moveDown(Block & b){}
 void levelZero::moveLeft(Block & b){}

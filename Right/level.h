@@ -1,11 +1,14 @@
 #ifndef LEVEL_H
 #define LEVEL_H
 
+#include <vector>
 #include "type.h"
 #include "difficulty.h"
 
 class levelZero : public Difficulty {
+    std::vector <std::vector <Cell*>> board;
 protected:
+    levelZero(std::vector <std::vector <Cell*>>& board);
     Block newBlock() override;
     void moveDown(Block & b) override;
     void moveLeft(Block & b) override;
@@ -15,7 +18,9 @@ protected:
 };
 
 class levelOne : public Difficulty {
+    std::vector <std::vector <Cell*>> board;
 protected:
+    levelOne(std::vector <std::vector <Cell*>>& board);
     Block newBlock() override;
     void moveDown(Block & b) override;
     void moveLeft(Block & b) override;
@@ -25,7 +30,9 @@ protected:
 };
 
 class levelTwo : public Difficulty {
+    std::vector <std::vector <Cell*>> board;
 protected:
+    levelTwo(std::vector <std::vector <Cell*>>& board);
     Block newBlock() override;
     void moveDown(Block & b) override;
     void moveLeft(Block & b) override;
@@ -35,7 +42,9 @@ protected:
 };
 
 class levelThree : public Difficulty {
+    std::vector <std::vector <Cell*>> board;
 protected:
+    levelThree(std::vector <std::vector <Cell*>>& board);
     Block newBlock() override;
     void moveDown(Block & b) override;
     void moveLeft(Block & b) override;
@@ -45,7 +54,9 @@ protected:
 };
 
 class levelFour : public Difficulty {
+    std::vector <std::vector <Cell*>> board;
 protected:
+    levelFour(std::vector <std::vector <Cell*>>& board);
     Block newBlock() override;
     void moveDown(Block & b) override;
     void moveLeft(Block & b) override;

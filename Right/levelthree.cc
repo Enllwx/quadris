@@ -3,6 +3,7 @@
 #include "level.h"
 using namespace std;
 
+levelThree::levelThree(std::vector <std::vector <Cell*>>& board):{}
 Block levelThree::newBlock(){}
 void levelThree::moveDown(Block & b){}
 void levelThree::moveLeft(Block & b){}
