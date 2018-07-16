@@ -7,7 +7,7 @@
 
 class TextDisplay {
     std::vector<std::vector<char*>> board;
-protected:
+public:
     // ctor
     TextDisplay(std::vector <std::vector <Cell*>> &board);
     // erase the first linNum vectors in board

@@ -1,31 +1,28 @@
-//
-//  grid.hpp
-//  object
-//
-//  Created by Enllwx on 2018-07-12.
-//  Copyright © 2018 Enllwx. All rights reserved.
-//
+#ifndef GRID_H
+#define GRID_H
 
-#ifndef GRID.H
-#define GRID.H
-
+#include <iostream>
+#include <vector>
 #include "type.h"
 #include "grid.h"
-#include <vector>
+#include "score.h"
+#include "TextDisplay.h"
+#include "graphicdisplay.h"
+#include "blockholder.h"
+
 using namespace std;
 
 class Grid {
-    int difficultyLevel;
-    vector <vector <Cell*>> board;
-    BlockHolder* theHolder;
-    TextDisplay* td;
-    GraphicDisplay* gd;
-    ScoreCounter* score;
     int *difficultyLevel;
+    vector <vector <Cell*>> board;
+    BlockHolder* theHolder = nullptr;
+    TextDisplay* td = nullptr;
+    GraphicDisplay* gd = nullptr;
+    ScoreCounter* score = nullptr;
+    int *difficultyLevel = nullptr;
     // point to same place as "difficultyLevel" in BlockHolder
 public:
-    Grid();         // ctor
-    ~Grid();        // dtor
+    Grid(int *difficulty, int textOnly);     // ctor
     
     void update();      // update() the board (may eliminate lines)
     void clear();       // clear() clear the board
@@ -33,9 +30,8 @@ public:
     void gameOver();    // gameOver() determine if the game is over
     void changeLevel(int num);
     // mutate() change the current block
-    void mutate(int num, Move cmd,
-                vector <vector <Cell*>> board);
-    friend operator<<(std::ostream &out, const Grid &g);
-}
+    void mutate(int num, Move cmd);
+    friend ostream& operator<<(std::ostream &out, const Grid &g);
+};
 
 #endif /* grid_hpp */

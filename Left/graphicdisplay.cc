@@ -124,6 +124,11 @@ void GraphicDisplay::drawGraph(int lvl, Shape NexBlock, scoreCounter* s) const
     return;
 }
 
+void GraphicDisplay::gameOver(int score) const
+{
+    window->drawString(0, 0, "GAME OVER !!!!");
+    window->drawString(0, 0, "Your score is " + to_string(score));
+}
 
 
 

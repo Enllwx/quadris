@@ -6,10 +6,9 @@
 class scoreCounter {
     int maxSoFar = 0;
     int totalScore = 0;
-protected:
+public:
     void clear();           // totalScore back to 0
     void addScore(int lvl, int lines);  // add score
-public:
     int getTotal() const;   // return totalScore
     int getMax() const;     // return totalScore
 };

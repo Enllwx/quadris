@@ -5,14 +5,26 @@
 Shape BlockHolder::nextBlockType() const { return nextBlock->type; }
 
 // mutate the current block
-void BlockHolder::mutate(const int num, Move cmd,
-            std::vector <std::vector <Cell*>> board)
+void BlockHolder::mutate(const int num, Move cmd)
 {
     
 }
 
 // give hint for current block
-void BlockHolder::hint(std::vector <std::vector <Cell*>> board)
+void BlockHolder::hint()
+{
+    
+}
+
+void BlockHolder::clear()
+{
+    delete currentBlock;
+    delete nextBlock;
+    currentBlock = nullptr;
+    nextBlock = nullptr;
+}
+
+bool BlockHolder::gameOver()()
 {
     
 }

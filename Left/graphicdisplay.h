@@ -12,9 +12,10 @@ class GraphicDisplay
     Xwindow* window;
     std::vector<std::vector<char*>> board;
 public:
-    void update(int lineNum = 1);
     GraphicDisplay(std::vector <std::vector <Cell*>> &board);
+    void update(int lineNum = 1);
     void drawGraph(int lvl, Shape NexBlock, scoreCounter* s) const;
+    void gameOver(int score) const;
 };
 
 
