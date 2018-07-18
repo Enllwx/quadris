@@ -21,6 +21,8 @@ public:
   Shape getShape() const;
   Shape setShape(Shape s);
   int getWeight() const;
+  int getWidth() const;
+  int getHeight() const;
   std::vector<Cell> getArea() const;
   void setArea(std::vector<Cell> newArea);
 };

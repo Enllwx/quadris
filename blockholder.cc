@@ -11,16 +11,18 @@ BlockHolder::BlockHolder(Grid *g):
   for(int i=0; i<levels.size(); ++i) levels[i]->setGrid(g);
 
   currentBlock = getDifficulty(g->getDifficulty())->newBlock();
+  nextBlock = getDifficulty(g->getDifficulty())->newBlock();
 }
 
 Difficulty* BlockHolder::getDifficulty(Level lvl){
   return levels[lvl];
 }
 
-// return the type of next block
-Shape BlockHolder::nextBlockType() const {}//const { return nextBlock->type; }
+// return the next block
+Block& BlockHolder::getNextBlock() { return nextBlock; }
 
-Block& BlockHolder::getCurrentBlock(){ return currentBlock; }
+// return the current block
+Block& BlockHolder::getCurrentBlock() { return currentBlock; }
 
 // mutate the current block
 void BlockHolder::mutate(Move cmd, const int num){
@@ -53,7 +55,9 @@ void BlockHolder::hint(){
 
 }
 
-void BlockHolder::clear(){
+void BlockHolder::generateNextBlock(){
+  std::cout << "Next block" << std::endl;
+  currentBlock = getDifficulty(theGrid->getDifficulty())->newBlock();  
 }
 
 bool BlockHolder::gameOver(){

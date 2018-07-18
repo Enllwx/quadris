@@ -19,6 +19,7 @@ class Grid {
   // point to same place as "difficultyLevel" in BlockHolder
 
   void showCurrentPosition();
+  void eliminateRow();
   
 public:
   Grid(int w = 11, int h = 15, Level d = Level::lvl0, bool textOnly = true);     // ctor

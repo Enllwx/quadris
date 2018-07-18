@@ -58,7 +58,7 @@ Block Difficulty::rotateClock(Block b){
   for(int row = 0; row < 4; ++row)
     for(int col = 0; col < 4; ++col)
       if(newOccupied[row][col])
-        newArea.emplace_back(Cell{area[0].content, b.getRow() - row, b.getCol() + col});
+        newArea.emplace_back(Cell{area[0].content, b.getRow() - row + 3 - b.getWidth(), b.getCol() + col});
   rotated.setArea(newArea);
   rotated.setRow(b.getRow());
   rotated.setCol(b.getCol());
@@ -91,8 +91,8 @@ Block Difficulty::moveLeft(Block b){
 
   Block moved(b.getShape());
   moved.setArea(area);
-  moved.setRow(b.getCol()-1);
-  moved.setCol(b.getRow());
+  moved.setCol(b.getCol()-1);
+  moved.setRow(b.getRow());
 
   if(validPosition(moved)) return moved;
   return b;  
@@ -104,8 +104,8 @@ Block Difficulty::moveRight(Block b){
 
   Block moved(b.getShape());
   moved.setArea(area);
-  moved.setRow(b.getCol()+1);
-  moved.setCol(b.getRow());
+  moved.setCol(b.getCol()+1);
+  moved.setRow(b.getRow());
 
   if(validPosition(moved)) return moved;
   return b;  

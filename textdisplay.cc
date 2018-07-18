@@ -38,50 +38,7 @@ std::ostream &operator<<(std::ostream &out, TextDisplay &td){
   // Prints the seperators
   for(int col = 0; col < td.theGrid->getWidth(); ++col)
     out << '-';
-  out<< std::endl;
+  out << std::endl;
   
   return out;
 }
-
-// // erase the first linNum vectors in board
-// void TextDisplay::update(int lineNum)
-// { board.erase( board.begin(), board.begin() + lineNum ); }
-
-// void TextDisplay::printText(int lvl, Shape NexBlock, scoreCounter* s) const
-// {
-//     cout << "Level:    " << lvl << endl;
-//     cout << "Score:    " << s->getTotal() << endl;
-//     cout << "Hi Score: " << s->getMax() << endl;
-    
-//     cout << "-----------" << endl;
-    
-//     for (auto row : board){
-//         for (auto cell : row){
-//             if (*cell == '-') cout << " ";
-//             else { cout << *cell; }
-//         }
-//         cout << endl;
-//     }
-    
-//     cout << "-----------" << endl;
-    
-//     cout << "Next:" << endl;
-//     //Iblock, Jblock, Oblock, Lblock, Sblock, Zblock, Tblock
-//     if (NexBlock == Shape::Iblock) {
-//         cout << "   " << endl << "IIII" << endl;
-//     } else if (NexBlock == Shape::Jblock) {
-//         cout << "J  " << endl << "JJJ" << endl;
-//     } else if (NexBlock == Shape::Lblock) {
-//         cout << "  L" << endl << "LLL" << endl;
-//     } else if (NexBlock == Shape::Oblock) {
-//         cout << "OO " << endl << "OO " << endl;
-//     } else if (NexBlock == Shape::Sblock) {
-//         cout << " SS" << endl << "SS " << endl;
-//     } else if (NexBlock == Shape::Zblock) {
-//         cout << "ZZ " << endl << " ZZ" << endl;
-//     } else if (NexBlock == Shape::Tblock) {
-//         cout << "TTT" << endl << " T " << endl;
-//     }
-//     cout << endl;
-//     return;
-// }

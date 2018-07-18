@@ -4,6 +4,7 @@
 #include "difficulty.h"
 
 class LevelZero: public Difficulty{
+  int counter = 0;
 public:
   LevelZero(Grid *g = nullptr);
   Block newBlock() override;

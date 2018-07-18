@@ -9,11 +9,10 @@
 
 class Grid;
 class BlockHolder {
-  Block currentBlock;
+  Block currentBlock, nextBlock;
 
   std::vector<Difficulty*> levels;
   LevelZero levelZero;
-  //Difficulty* levels[1] = {new LevelZero()};
 
   Grid *theGrid;
 
@@ -22,10 +21,10 @@ class BlockHolder {
 public:
   BlockHolder(Grid *g);
   Block &getCurrentBlock();      // return the current block  
-  Shape nextBlockType() const;  // return the type of next block
+  Block &getNextBlock();         // return the type of next block
   void mutate(Move cmd, const int num = 1);   // mutate the current block
   void hint();                  // give hint for current block
-  void clear();
+  void generateNextBlock();     // sets the currentblock to the next block
   bool gameOver();              // return if the game is over
 };
 

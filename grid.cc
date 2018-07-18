@@ -23,12 +23,9 @@ Grid::Grid(int w, int h, Level d, bool textOnly):
       board[row].emplace_back(Cell{Content::Empty, row, col});
   }
 
-  board[5][0].content = Content::Extra;
-  //theHolder = new BlockHolder{board};
-  //td = new TextDisplay{board};
+  //board[6][0].content = Content::Extra;
   //if (textOnly) gd = new GraphicDisplay{board};
   //score = new scoreCounter;
-  //difficultyLevel = difficulty;
 }
 
 Cell Grid::getCell(int row, int col){ return board[row][col]; }
@@ -44,34 +41,49 @@ void Grid::showCurrentPosition(){
   std::cout << "Current = (" << b.getRow() << ", " << b.getCol() << ")" << std::endl;
 }
 
-// update() the board (may eliminate lines)
+// tries to eliminate any rows
+void Grid::eliminateRow(){
+  for(int row = 0; row < getHeight(); ++row){       // For each row... (go from top of grid (0) to down)
+    int occupied = 0;                               // Count occupied cells
+    for(int col = 0; col < getWidth(); ++col)
+      if(cellOccupied(row, col)) ++occupied;
+
+    if(occupied < getWidth()) continue;            // If row is full...
+    board.erase(board.begin() + row);              // Delete full row
+    std::vector<Cell> newRow;                      // Make new empty row
+    newRow.resize(getWidth());
+    board.insert(board.begin(), newRow);           // Insert new row
+  }
+}
+
+// update() the board (may eliminate lines by calling eliminateRow())
 void Grid::update(){
   std::cout << "Update grid" << std::endl;
   showCurrentPosition();
-  // int eliminateNum = 0;
-  // bool checkEliminate = 1;
+
+  // Checks if need to request next block
+  Block currentBlock = theHolder.getCurrentBlock();
+  bool requestNext = false;
+  if(currentBlock.getRow() == getHeight()-1) requestNext = true;   // Request next block when current block at end of board
+  else{                                                            // Or when resting on other blocks
+    for(int d = 0; d < currentBlock.getWidth(); ++d)
+      if(cellOccupied(currentBlock.getRow()+1, currentBlock.getCol()+d)){
+        requestNext = true;
+        break;
+      }
+  }
+
+  if(requestNext){
+    // Place block into board
+    std::vector<Cell> area = currentBlock.getArea();
+    for(int i=0; i<area.size(); ++i)
+      board[area[i].row][area[i].col].content = area[i].content;
     
-  // while (checkEliminate){
-  //   for (int i=0; i<11; i++){
-  //     if (board[17][i]->type == ' '){
-  //       checkEliminate = 0;
-  //       break;
-  //     }
-  //   }
-        
-  //   if (checkEliminate){
-  //     board.pop_back();
-  //     vector <Cell*> temp;
-  //     for (int i=0; i<11; i++) temp.push_back(new Cell{0,i,' '});
-  //     board.insert(board.begin(), temp);
-  //   }
-  // }
-    
-  // if (eliminateNum){
-  //   td->update(eliminateNum);
-  //   if (gd) gd->update(eliminateNum);
-  //   score->addScore(*difficultyLevel ,eliminateNum);
-  // }
+    theHolder.generateNextBlock();  // Request next block
+    eliminateRow();         // Eliminate rows if possible
+  }
+  std::cout << "Updated grid" << std::endl;
+  showCurrentPosition();
 }
 
 // clear() clear the board

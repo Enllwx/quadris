@@ -15,26 +15,27 @@ using namespace std;
 int main(){
   Grid g;// = new Grid();
   cout << g;
-  // for(int i=0; i<15; ++i){
-  //   g.mutate(Move::Down);
-  //   cout << g;
-  // }
-  g.mutate(Move::Down);
+  g.mutate(Move::Down, 15);
   cout << g;
-  //g.mutate(Move::Rotate);  
-  //cout << g;
-  //g.mutate(Move::Drop);  
-  //cout << g;
-  //g.mutate(Move::Right);
-  //Difficulty *d = new LevelZero(g);
-  //bh.mutate(Move::Down);
-  //cout << b.getRow() << ", " << b.getCol() << endl;
-  //b = d->moveDown(b);
-  //cout << b.getRow() << ", " << b.getCol() << endl;
-  //Block b(Shape::Iblock);
-  //cout << b.getRow() << ", " << b.getCol() << endl;
-  //delete g;
-  //cout << g;
-  //cout << g;
+  g.mutate(Move::Drop);
+  cout << g;
+  g.mutate(Move::Right, 2);
+  g.mutate(Move::Drop);
+  cout << g;
+  g.mutate(Move::Right, 4);
+  g.mutate(Move::Drop);
+  cout << g;
+  g.mutate(Move::Right, 6);
+  g.mutate(Move::Drop);
+  cout << g;
+  g.mutate(Move::Right, 8);
+  g.mutate(Move::Drop);
+  cout << g;
+  g.mutate(Move::Rotate);
+  g.mutate(Move::Right, 10);
+  g.mutate(Move::Down, 1);
+  cout << g;
+  g.mutate(Move::Drop);
+ cout << g;
   cout << "success" << endl;
 }

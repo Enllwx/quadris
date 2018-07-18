@@ -54,49 +54,22 @@ int Block::getCol() const { return col; }
 int Block::setCol(int c) { col = c; }
 
 Shape Block::getShape() const { return shape; }
-Shape Block::setShape(Shape s) { shape = s; }
+Shape Block::setShape(Shape s) {
+  shape = s;  // NO NO NO NO and NO. BAD!!!!
+}
 
 int Block::getWeight() const { return heaviness; }
 std::vector<Cell> Block::getArea() const { return area; }
 void Block::setArea(std::vector<Cell> newArea){ area = newArea; }
 
-// void Block::moveLeft(){
-//   for(int i=0; i<4; ++i) area[i].col--;
-//   col--;
+int Block::getWidth() const{
+  int width = 0;
+  for(int i=0; i<area.size(); ++i) width = std::max(width, area[i].col - col);
+  return width;
+}
 
-//   if(validPosition()) notify();
-//   else moveRight();
-// }
-
-// void Block::moveRight(){
-//   for(int i=0; i<4; ++i) area[i].col++;
-//   col++;
-
-//   if(validPosition()) notify();
-//   else moveRight();
-// }
-
-// void Block::moveDown(){
-//   for(int i=0; i<4; ++i) area[i].row++;
-//   row++;
-  
-//   if(validPosition()) notify();
-//   else{
-//     for(int i=0; i<4; ++i) area[i].row--;
-//     row--;
-//   }
-// }
-
-// void Block::drop(){
-//   while(validPosition()){
-//     for(int i=0; i<4; ++i) area[i].row++;
-//     row++;
-//   }
-//   for(int i=0; i<4; ++i) area[i].row--;
-//   row--; notify();
-// }
-
-// void Block::changeShape(Shape s){
-//   // Implement later!!!
-// }
-
+int Block::getHeight() const{
+  int height = 0;
+  for(int i=0; i<area.size(); ++i) height = std::max(height, area[i].row - row);
+  return height;
+}
