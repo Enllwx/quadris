@@ -7,10 +7,10 @@ Difficulty::Difficulty(Grid *g): theGrid{g}{}
 
 void Difficulty::setGrid(Grid *g){ theGrid = g; }
 
-bool Difficulty::validPosition(Block b){
+bool Difficulty::validPosition(Block b) {
   std::vector<Cell> area = b.getArea();
   
-  for(int i=0; i<area.size(); ++i){
+  for(int i=0; i<area.size(); ++i) {
     if(area[i].row < 0 || area[i].row >= theGrid->getHeight() ||
        area[i].col < 0 || area[i].col >= theGrid->getWidth() ||
        theGrid->cellOccupied(area[i].row, area[i].col))
