@@ -1,23 +1,18 @@
-#ifndef TYPE_H
-#define TYPE_H
+#ifndef _TYPE_H_
+#define _TYPE_H_
 
-enum class Level {lvl0, lvl1, lvl2, lvl3, lvl4};
-enum class Shape {Iblock, Jblock, Oblock, Lblock,
-                    Sblock, Zblock, Tblock};
-enum class Move {Left, Right, down, CounterRotate, Rotate};
-enum class State {occuped, temp, empty};
+// Difficulty level
+enum Level {lvl0 = 0, lvl1 = 1, lvl2 = 2, lvl3 = 3, lvl4 = 4, maxLvl = 4};
 
-// cell is componet of board
-struct Cell {
-    const int x;
-    const int y;
-    char type = '-';
-    State state = State::empty;  // defualt type: empty
-};
+// Shape of block.
+enum Shape {Iblock = 0, Jblock = 1, Oblock = 2, Lblock = 3,
+            Sblock = 4, Zblock = 5, Tblock = 6};
 
-struct Block {
-    Cell *area[4];
-    Shape type = Shape::Iblock;
-};
+// What is in each cell
+enum Content {Hint = '?', Empty = ' ', Extra = '*',
+              I = 'I', J = 'J', O = 'O', L = 'L', S = 'S',
+              Z = 'Z', T = 'T'};
+
+enum Move {Left, Right, Down, Drop, CounterRotate, Rotate};
 
 #endif /* type.h */
