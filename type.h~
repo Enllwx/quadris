@@ -13,6 +13,6 @@ enum Content {Hint = '?', Empty = ' ', Extra = '*',
               I = 'I', J = 'J', O = 'O', L = 'L', S = 'S',
               Z = 'Z', T = 'T'};
 
-enum Move {Left, Right, Down, Drop, CounterRotate, Rotate};
+enum Move {Left, Right, down, CounterRotate, Rotate};
 
 #endif /* type.h */

@@ -1,0 +1,27 @@
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <string>
+
+#include "block.h"
+#include "type.h"
+#include "difficulty.h"
+#include "levelzero.h"
+#include "grid.h"
+#include "blockholder.h"
+
+using namespace std;
+
+int main(){
+  Grid *g = new Grid();
+  //BlockHolder bh(g);  
+  //Difficulty *d = new LevelZero(g);
+  //bh.mutate(Move::Down);
+  //Block b = bh.getCurrentBlock();
+  //cout << b.getRow() << ", " << b.getCol() << endl;
+  //b = d->moveDown(b);
+  //cout << b.getRow() << ", " << b.getCol() << endl;
+  //Block b(Shape::Iblock);
+  //cout << b.getRow() << ", " << b.getCol() << endl;
+  cout << "success" << endl;
+}

@@ -13,17 +13,14 @@
 */
 
 Grid::Grid(int w, int h, Level d, bool textOnly):
-  width{w}, height{h+3}, difficultyLevel{d},
-  theHolder{BlockHolder(this)},
-  td{TextDisplay(this)}
+  width{w}, height{h+3}, difficultyLevel{d}
+  //theHolder{BlockHolder(this)}
 {
   board.resize(height);
   for(int row = 0; row < height; ++row){
     for(int col = 0; col < width; ++col)
       board[row].emplace_back(Cell{Content::Empty, row, col});
   }
-
-  board[5][0].content = Content::Extra;
   //theHolder = new BlockHolder{board};
   //td = new TextDisplay{board};
   //if (textOnly) gd = new GraphicDisplay{board};
@@ -37,17 +34,9 @@ int Grid::getWidth(){ return width; }
 int Grid::getHeight(){ return height; }
 Level Grid::getDifficulty(){ return difficultyLevel; }
 
-BlockHolder& Grid::getBlockHolder(){ return theHolder; }
-
-void Grid::showCurrentPosition(){
-  Block b = theHolder.getCurrentBlock();
-  std::cout << "Current = (" << b.getRow() << ", " << b.getCol() << ")" << std::endl;
-}
-
 // update() the board (may eliminate lines)
 void Grid::update(){
   std::cout << "Update grid" << std::endl;
-  showCurrentPosition();
   // int eliminateNum = 0;
   // bool checkEliminate = 1;
     
@@ -105,11 +94,8 @@ void Grid::gameOver(){
 void Grid::changeLevel(Level num) { difficultyLevel = num; }
 
 // mutate() change the current block
-void Grid::mutate(Move cmd, const int num){
-  showCurrentPosition();
-  theHolder.mutate(cmd, num);
+void Grid::mutate(int num, Move cmd){
+  //theHolder.mutate(num, cmd);
 }
 
-std::ostream &operator<<(std::ostream &out, Grid &g){
-  return out << g.td;
-}
+//std::ostream& Grid::operator<<(std::ostream &out, const Grid &g){}

@@ -1,0 +1,10 @@
+#ifndef _LEVEL_ZERO_H_
+#define _LEVEL_ZERO_H_
+
+class LevelZero: public Difficulty{
+public:
+  LevelZero(Grid *g);
+  override Block newBlock();
+}
+
+#endif
