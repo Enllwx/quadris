@@ -18,51 +18,23 @@ bool Difficulty::validPosition(Block b){
   } return true;
 }
 
+// MAGIC: DO NOT TOUCH!!!
 Block Difficulty::rotateClock(Block b){
-  bool occupied[4][4];
-  bool newOccupied[4][4];
-  for(int r=0; r<4; ++r)
-    for(int c=0; c<4; ++c)
-      newOccupied[r][c] = occupied[r][c] = false;
-  
-  std::vector<Cell> area = b.getArea();
-  for(int i=0; i<area.size(); ++i)
-    occupied[b.getRow()-area[i].row][area[i].col-b.getCol()] = true;
-
-  for(int row = 0; row < 4; ++row){
-    for(int col = 0; col < 4; ++col)
-      std::cout << occupied[row][col];
-    std::cout << std::endl;
-  }
-  
-  for(int oldRow = 0, newCol = 0;
-      oldRow < 4;
-      oldRow++, newCol++){
-    for(int oldCol = 0, newRow = 3;
-        oldCol < 4;
-        oldCol++, newRow--){
-      newOccupied[newRow][newCol] = occupied[oldRow][oldCol];
-    }
-  }
-
-  std::cout << std::endl;
-  
-  for(int row = 0; row < 4; ++row){
-    for(int col = 0; col < 4; ++col)
-      std::cout << newOccupied[row][col];
-    std::cout << std::endl;
-  }
-
+  int width = b.getWidth(), height = b.getHeight();
   Block rotated(b.getShape());
+  std::vector<Cell> oldArea = b.getArea();
   std::vector<Cell> newArea;
-  for(int row = 0; row < 4; ++row)
-    for(int col = 0; col < 4; ++col)
-      if(newOccupied[row][col])
-        newArea.emplace_back(Cell{area[0].content, b.getRow() - row + 3 - b.getWidth(), b.getCol() + col});
+  for(int i=0; i<oldArea.size(); ++i)
+    // Following 3 lines is the key that makes the rotation work!
+    // Does magic calculations. Don't think too much about it. Thinking is bad for your brain.
+    newArea.emplace_back(Cell{oldArea[i].content,
+                              (b.getRow() - width) + (oldArea[i].col - b.getCol()),
+                              (b.getCol() + height) - (oldArea[i].row - b.getRow())});
+
   rotated.setArea(newArea);
   rotated.setRow(b.getRow());
   rotated.setCol(b.getCol());
-  
+
   if(validPosition(rotated)) return rotated;
   return b;
 }
