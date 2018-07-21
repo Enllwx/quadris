@@ -1,12 +1,32 @@
 #include "levelzero.h"
+#include <iostream>
 
-LevelZero::LevelZero(Grid *g): Difficulty{g}{}
+LevelZero::LevelZero(std::shared_ptr<Grid> g, std::string path):
+  Difficulty{g, path}
+{
+  loadPath = path;
+  std::ifstream reader(loadPath);
+  char c = '0';
+  while(reader >> c){
+    Shape s = Shape::Iblock;
+    switch(c){
+      case Content::I : s = Shape::Iblock; break;
+      case Content::J : s = Shape::Jblock; break;
+      case Content::O : s = Shape::Oblock; break;
+      case Content::L : s = Shape::Lblock; break;
+      case Content::S : s = Shape::Sblock; break;
+      case Content::Z : s = Shape::Zblock; break;
+      case Content::T : s = Shape::Tblock; break;
+    } generationSequence.emplace_back(s);
+  }
+}
+LevelZero::LevelZero(){}
 
 Block LevelZero::newBlock(){
-  counter %= 6;
-  //counter++; counter %= 6;
-  //counter++;
-  //if(counter == 7)  return Block(Shape::Iblock, 0, 3, 0);
-  //return Block(Shape::Jblock, 0, 3, 0);
-  return Block((Shape) (counter++), 0, 3, 0);
+  if(generationSequence.size() != 0){
+    counter %= generationSequence.size();
+    return Block(generationSequence[counter++], 0, 3, 0, Level::lvl0);
+  } else return Block();
 }
+
+void LevelZero::setLoadPath(std::string path){}

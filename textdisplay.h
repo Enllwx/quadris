@@ -3,14 +3,15 @@
 
 #include <vector>
 #include <iostream>
+#include <memory>
 #include "type.h"
 
 class Grid;
 class TextDisplay {
-  Grid *theGrid;
+  std::weak_ptr<Grid> theGrid;
   std::vector<std::vector <char>> board;
  public:
-  TextDisplay(Grid *g);
+  void setGrid(std::shared_ptr<Grid> g);
 
   friend std::ostream &operator<<(std::ostream &out, TextDisplay &td);
 };

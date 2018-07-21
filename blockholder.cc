@@ -3,63 +3,88 @@
 #include "blockholder.h"
 #include "grid.h"
 
-BlockHolder::BlockHolder(Grid *g):
-  theGrid{g}, levelZero{LevelZero()}
+#include "levelzero.h"
+#include "levelone.h"
+#include "leveltwo.h"
+#include "levelthree.h"
+#include "levelfour.h"
+
+void BlockHolder::setGrid(std::shared_ptr<Grid> g)
 {
-  levels.emplace_back(&levelZero);
+  theGrid = g;
+  levels.clear();
+  
+  levels.emplace_back(std::make_shared<LevelZero>(g));
+  levels.emplace_back(std::make_shared<LevelOne>(g));
+  levels.emplace_back(std::make_shared<LevelTwo>(g));
+  levels.emplace_back(std::make_shared<LevelThree>(g));
+  levels.emplace_back(std::make_shared<LevelFour>(g));
 
-  for(int i=0; i<levels.size(); ++i) levels[i]->setGrid(g);
-
-  currentBlock = getDifficulty(g->getDifficulty())->newBlock();
-  nextBlock = getDifficulty(g->getDifficulty())->newBlock();
+  levels[Level::lvl0]->setLoadPath(g->getDefaultLoadPath());
+  
+  currentBlock = getDifficulty()->newBlock();
+  currentBlock.setId(blockCounter++);
+  nextBlock = getDifficulty()->newBlock();
+  nextBlock.setId(blockCounter++);
 }
 
-Difficulty* BlockHolder::getDifficulty(Level lvl){
-  return levels[lvl];
+std::shared_ptr<Difficulty> BlockHolder::getDifficulty(){
+  return levels[theGrid.lock()->getLevel()];
 }
 
 // return the next block
-Block& BlockHolder::getNextBlock() { return nextBlock; }
+Block &BlockHolder::getNextBlock() { return nextBlock; }
 
 // return the current block
-Block& BlockHolder::getCurrentBlock() { return currentBlock; }
+Block &BlockHolder::getCurrentBlock() { return currentBlock; }
 
 // mutate the current block
 void BlockHolder::mutate(Move cmd, const int num){
   for(int i=0; i<num; ++i){
     switch(cmd){
       case Move::Left :
-        currentBlock = getDifficulty(theGrid->getDifficulty())->moveLeft(currentBlock);
+        currentBlock = getDifficulty()->moveLeft(currentBlock);
         break;
       case Move::Right :
-        currentBlock = getDifficulty(theGrid->getDifficulty())->moveRight(currentBlock);
+        currentBlock = getDifficulty()->moveRight(currentBlock);
         break;
       case Move::Down :
-        currentBlock =  getDifficulty(theGrid->getDifficulty())->moveDown(currentBlock);
+        currentBlock =  getDifficulty()->moveDown(currentBlock);
         break;
       case Move::Drop :
-        currentBlock = getDifficulty(theGrid->getDifficulty())->drop(currentBlock);
+        currentBlock = getDifficulty()->drop(currentBlock);
         break;
       case Move::CounterRotate :
-        currentBlock = getDifficulty(theGrid->getDifficulty())->rotateCounter(currentBlock);
+        currentBlock = getDifficulty()->rotateCounter(currentBlock);
         break;
       case Move::Rotate :
-        currentBlock = getDifficulty(theGrid->getDifficulty())->rotateClock(currentBlock);
+        currentBlock = getDifficulty()->rotateClock(currentBlock);
         break;
     }
-  } theGrid->update();
+  } theGrid.lock()->update();
 }
 
-// give hint for current block
-void BlockHolder::hint(){
-
+// change shape of current block
+void BlockHolder::changeShape(Shape s){
+  Block backUp = currentBlock;
+  currentBlock.setShape(s);
+  if(!getDifficulty()->validPosition(currentBlock)) currentBlock = backUp;
 }
 
-void BlockHolder::generateNextBlock(){
-  std::cout << "Next block" << std::endl;
-  currentBlock = getDifficulty(theGrid->getDifficulty())->newBlock();  
+void BlockHolder::switchToNextBlock(){
+  currentBlock = nextBlock;
+  nextBlock = getDifficulty()->newBlock();
+  nextBlock.setId(blockCounter++);
 }
 
 bool BlockHolder::gameOver(){
   return false;
+}
+
+void BlockHolder::setLoadPath(std::string path){
+  for(int i=0; i<levels.size(); ++i) levels[i]->setLoadPath(path);
+}
+
+void BlockHolder::implementPenalty(){
+  getDifficulty()->implementPenalty();
 }

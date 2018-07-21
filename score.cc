@@ -1,17 +1,48 @@
 #include "score.h"
-
-// return the mas scare so far
-int scoreCounter::getTotal() const{ return totalScore; }
-
-// return the total score
-int scoreCounter::getMax() const{ return maxSoFar; }
-
+#include "type.h"
+#include <iostream>
 // add the new score
-void scoreCounter::clear() { totalScore = 0; }
+void ScoreCounter::clear() { totalScore = 0; }
 
 //
-void scoreCounter::addScore(int lvl, int lines)
+void ScoreCounter::addScore(Level lvl, int lines)
 {
-    totalScore += (lvl + lines) * (lvl + lines);
+    int lvl_num = 0;
+    switch (lvl) {
+        case Level::lvl0: lvl_num = 0; break;
+        case Level::lvl1: lvl_num = 1; break;
+        case Level::lvl2: lvl_num = 2; break;
+        case Level::lvl3: lvl_num = 3; break;
+        case Level::lvl4: lvl_num = 4; break;
+    }
+    std::cout << totalScore << std::endl;
+    totalScore += (lvl_num + lines) * (lvl_num + lines);
     if ( maxSoFar < totalScore ) maxSoFar = totalScore;
 }
+
+void ScoreCounter::addScore(Level lvl)
+{
+    int addOn = 0;
+    switch (lvl) {
+        case Level::lvl0: addOn = 1; break;
+        case Level::lvl1: addOn = 2; break;
+        case Level::lvl2: addOn = 3; break;
+        case Level::lvl3: addOn = 4; break;
+        case Level::lvl4: addOn = 5; break;
+    }
+    std::cout << totalScore << std::endl;
+    totalScore += addOn; 
+    if ( maxSoFar < totalScore ) maxSoFar = totalScore;
+}
+std::ostream &operator<<(std::ostream &out, ScoreCounter &s){
+    out << "Score:    " << s.maxSoFar << std::endl;
+    out << "Hi Score: " << s.totalScore << std::endl;
+    out << "-----------" << std::endl;
+    return out;
+}
+    
+    
+    
+    
+    
+    

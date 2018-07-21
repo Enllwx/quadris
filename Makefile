@@ -1,6 +1,6 @@
 CXX=g++
 CXXFLAGS=-std=c++14 -Wextra -Wpedantic -Wall -MMD -g
-OBJECTS=block.o difficulty.o levelzero.o grid.o blockholder.o textdisplay.o test.o
+OBJECTS=block.o difficulty.o levelzero.o levelone.o leveltwo.o levelthree.o levelfour.o grid.o blockholder.o textdisplay.o hintgenerator.o score.o main.o
 DEPENDS=${OBJECTS:.o=.d}
 EXEC=quadris
 TEST_SUITE=quadris.txt
@@ -22,12 +22,6 @@ run:
 	make
 	./${EXEC}
 .PHONY: run
-
-# test:
-# 	make
-# 	cp ${EXEC} tests/${EXEC}-solution
-# 	cd tests && runSuite ./${TEST_SUITE} ./${EXEC}-solution
-# .PHONY: test
 
 valgrind:
 	make

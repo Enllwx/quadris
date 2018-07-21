@@ -1,0 +1,17 @@
+clo
+dro
+
+
+clo
+right
+dro
+
+clo
+2right
+dro
+
+3rig
+dro
+
+7rig
+dro

@@ -3,15 +3,14 @@
 #include <iostream>
 #include "type.h"
 
-class scoreCounter {
+class ScoreCounter {
     int maxSoFar = 0;
     int totalScore = 0;
-protected:
-    void clear();           // totalScore back to 0
-    void addScore(int lvl, int lines);  // add score
 public:
-    int getTotal() const;   // return totalScore
-    int getMax() const;     // return totalScore
+    void clear();           // totalScore back to 0
+    void addScore(Level lvl, int lines);  // add score
+    void addScore(Level lvl);  // add score
+    friend std::ostream &operator<<(std::ostream &out, ScoreCounter &s);
 };
 
 #endif /* score_h */
