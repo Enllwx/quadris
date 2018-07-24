@@ -3,35 +3,35 @@
 
 #include <memory>
 #include <string>
+#include <vector>
 #include "window.h"
-#include "grid.h"
+#include "cell.h"
+#include "block.h"
 #include "type.h"
 
 class GraphicsDisplay{
-  std::shared_ptr<Xwindow> theDisplay;              // The Xwindow used to display the grid
-  std::weak_ptr<Grid> theGrid;
-  std::vector<std::vector <Cell>> board;
-  std::vector <Cell> cleanup;
-
-  int cellSize, leftOffset, topOffset, rightOffset, bottomOffset;
-  
-  void drawCell(int row, int col, int colour);
-  
-  void drawText(int row, int col, std::string txt);
-  void drawText(int row, int col, int i);
-
-  int getColour(char c);
-  
-  void showInfo();
-  void showNextBlock();
-  
- public:
-  GraphicsDisplay(int width = 11, int height = 18,
-                  int cellSize = 25,
-                  int leftOffset = 25, int topOffset = 25,
-                  int rightOffset = 200, int bottomOffset = 50);
-  void setGrid(std::shared_ptr<Grid> g);
-  void update();
+    
+    int cellSize, leftOffset, topOffset, rightOffset, bottomOffset;
+    std::shared_ptr<Xwindow> theDisplay;              // The Xwindow used to display the grid
+    std::vector<std::vector <Cell> > * board;
+    
+    void drawCell(int row, int col, int colour);
+    void drawText(int row, int col, std::string txt);
+    void drawText(int row, int col, int i);
+    
+    int getColour(Content c);
+    
+    
+public:
+    GraphicsDisplay(int width = 11, int height = 18,
+                    int cellSize = 25,
+                    int leftOffset = 25, int topOffset = 25,
+                    int rightOffset = 200, int bottomOffset = 50);
+    void setGrid(std::vector<std::vector<Cell>> * board);
+    void showInfo(int lvl, int total, int MaxSofar);
+    void showNextBlock(Block b);
+    friend std::ostream &operator<<(std::ostream &out, GraphicsDisplay &gd);
 };
 
 #endif
+

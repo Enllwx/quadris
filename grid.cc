@@ -21,6 +21,9 @@ void Grid::init(string defaultPath, Level level){
     this->updateBoard();
 }
 
+void Grid::setupGraphic()
+{ this->gd = make_shared<GraphicsDisplay>(11, 18); }
+
 Block & Grid::getNextBlock()
 { return theHolder.getNextBlock(); }
 
@@ -238,6 +241,12 @@ ostream &operator<<(ostream &out, Grid &g){
         case Level::lvl2 : lvl_num = 2; break;
         case Level::lvl3 : lvl_num = 3; break;
         case Level::lvl4 : lvl_num = 4; break;
+    }
+    
+    if (g.gd != nullptr){
+        (g.gd)->showInfo(lvl_num, (g.score).getScore(), (g.score).getHighScore());
+        out << g.gd;
+        (g.gd)->showNextBlock(g.getNextBlock());
     }
     out << lvl_num << endl;
     out << g.score;

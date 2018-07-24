@@ -9,6 +9,7 @@
 #include "blockholder.h"
 #include "hintgenerator.h"
 #include "textdisplay.h"
+#include "graphicsdisplay.h"
 #include "score.h"
 
 class Grid : public std::enable_shared_from_this<Grid> {
@@ -20,6 +21,7 @@ class Grid : public std::enable_shared_from_this<Grid> {
     BlockHolder theHolder;
     TextDisplay td;
     ScoreCounter score;
+    std::unique_ptr <GraphicsDisplay> *gd = nullptr;
     
     // fields that help to run the program
     bool showHint = false;                  // determine if the hint should be show
@@ -38,6 +40,7 @@ public:
     
     Block & getNextBlock();
     Block & getCurrentBlock();
+    void setupGraphic();
     void update();      // update() the board (may eliminate lines)
     //void updateBoard();
     void clear();       // clear() clear the board

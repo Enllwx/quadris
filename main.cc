@@ -282,14 +282,11 @@ int main(int argc, const char* argv[]){
   // Initialises grid
   g->init(defaultPath, startLevel);
 
-  shared_ptr<GraphicsDisplay> gd;
   if(!textOnly){
-    gd = make_shared<GraphicsDisplay>(WIDTH, HEIGHT);
-    gd->setGrid(g);
+      g->setupGraphic();
   }
   
   cout << *g;
-  if(!textOnly) gd->update();
   
   cout << endl << "Enter command (\"help\" for instructions and \"quit\" to quit): ";
   while(getline(cin, input)){
@@ -297,7 +294,6 @@ int main(int argc, const char* argv[]){
 
     if(interpret(input) & OUTPUT){
       cout << *g;
-      if(!textOnly) gd->update();
     }
     
     if(g->gameOver()){
@@ -307,7 +303,6 @@ int main(int argc, const char* argv[]){
       getchar();
       
       cout << *g;
-      if(!textOnly) gd->update();
     }   cout << endl << "Enter command (\"help\" for instructions and \"quit\" to quit): ";
   }
 
