@@ -284,7 +284,7 @@ int main(int argc, const char* argv[]){
 
   shared_ptr<GraphicsDisplay> gd;
   if(!textOnly){
-    gd = make_shared<GraphicsDisplay>(WIDTH, HEIGHT);
+    gd = make_shared<GraphicsDisplay>(g->getWidth(), g->getHeight());
     gd->setGrid(g);
   }
   
