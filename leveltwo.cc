@@ -16,4 +16,4 @@ Block LevelTwo::newBlock(){
   return Block(generationSequence[rand() % generationSequence.size()], 0, 3, 0, Level::lvl2);
 }
 
-void LevelTwo::setLoadPath(std::string path){}
+void LevelTwo::setLoadPath(std::string){}

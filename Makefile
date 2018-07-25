@@ -1,6 +1,6 @@
 CXX=g++
 CXXFLAGS=-std=c++14 -Wextra -Wpedantic -Wall -MMD -g
-OBJECTS=block.o difficulty.o levelzero.o levelone.o leveltwo.o levelthree.o levelfour.o grid.o blockholder.o textdisplay.o hintgenerator.o score.o graphicsdisplay.o window.o test.o
+OBJECTS=block.o difficulty.o levelzero.o levelone.o leveltwo.o levelthree.o levelfour.o grid.o blockholder.o textdisplay.o hintgenerator.o score.o graphicsdisplay.o window.o main.o
 DEPENDS=${OBJECTS:.o=.d}
 EXEC=quadris
 TEST_SUITE=quadris.txt
@@ -11,7 +11,9 @@ ${EXEC}: ${OBJECTS}
 -include ${DEPENDS}
 
 clean:
+	mv *~ backup-src
 	rm ${OBJECTS} ${DEPENDS} ${EXEC}
+	rm *.zip
 .PHONY: clean
 
 zip:

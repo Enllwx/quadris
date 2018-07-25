@@ -10,10 +10,10 @@
 class Grid;
 class TextDisplay {
 
-    std::vector<std::vector <Cell>> * board;
-public:
-    void setGrid(std::vector<std::vector <Cell>> * board);
-    friend std::ostream &operator<<(std::ostream &out, TextDisplay &td);
+  std::vector<std::vector <Cell>> * board;
+ public:
+  void setGrid(std::vector<std::vector <Cell>> * board);
+  friend std::ostream &operator<<(std::ostream &out, TextDisplay &td);
 };
 #endif /* TextDisplay_h */
 

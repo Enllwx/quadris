@@ -30,4 +30,4 @@ Block LevelZero::newBlock(){
   } else return Block();
 }
 
-void LevelZero::setLoadPath(std::string path){}
+void LevelZero::setLoadPath(std::string){}

@@ -22,7 +22,7 @@ Xwindow::Xwindow(int width, int height) {
   XMapRaised(d, w);
 
   Pixmap pix = XCreatePixmap(d,w,width,
-        height,DefaultDepth(d,DefaultScreen(d)));
+                             height,DefaultDepth(d,DefaultScreen(d)));
   gc = XCreateGC(d, pix, 0,(XGCValues *)0);
 
   XFlush(d);
@@ -36,9 +36,9 @@ Xwindow::Xwindow(int width, int height) {
 
   cmap=DefaultColormap(d,DefaultScreen(d));
   for(int i=0; i < 11; ++i) {
-      XParseColor(d,cmap,color_vals[i],&xcolour);
-      XAllocColor(d,cmap,&xcolour);
-      colours[i]=xcolour.pixel;
+    XParseColor(d,cmap,color_vals[i],&xcolour);
+    XAllocColor(d,cmap,&xcolour);
+    colours[i]=xcolour.pixel;
   }
 
   XSetForeground(d,gc,colours[Black]);

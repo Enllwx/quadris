@@ -4,12 +4,12 @@
 #include "difficulty.h"
 
 class LevelZero: public Difficulty{
-public:
-    LevelZero();
-    LevelZero(std::vector <std::vector <Cell>> * bd,
-              std::string path = """sequence.txt");
-    Block newBlock() override;
-    void setLoadPath(std::string path) override;
+ public:
+  LevelZero();
+  LevelZero(std::vector <std::vector <Cell>> * bd,
+            std::string path = """sequence.txt");
+  Block newBlock() override;
+  void setLoadPath(std::string path) override;
 };
 
 #endif

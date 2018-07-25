@@ -283,7 +283,7 @@ int main(int argc, const char* argv[]){
   g->init(defaultPath, startLevel);
 
   if(!textOnly){
-      g->setupGraphic();
+    g->setupGraphic();
   }
   
   cout << *g;
