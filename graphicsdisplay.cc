@@ -43,7 +43,10 @@ void GraphicsDisplay::drawText(int row, int col, int i){
 }
 
 // Shows score info
-void GraphicsDisplay::showInfo(int lvl, int total, int MaxSofar){
+void GraphicsDisplay::showInfo(int lvl, int total, int MaxSofar){  
+  theDisplay->fillRectangle((WIDTH+1) * cellSize + leftOffset,
+                            (promptRow-1) * cellSize + topOffset,
+                            cellSize*(WIDTH+2), cellSize*(HEIGHT+2), Xwindow::White);
   string level_str;
   switch (lvl) {
     case 0: level_str =  "Level:      I  "; break;
@@ -59,15 +62,11 @@ void GraphicsDisplay::showInfo(int lvl, int total, int MaxSofar){
 
 // Shows score info
 void GraphicsDisplay::showNextBlock(Block b){
-    
-  int promptRow = std::min((HEIGHT - 1) - b.getHeight() - 2,
-                           HEIGHT - 1 - 4);
-    
-  theDisplay->fillRectangle((WIDTH+1) * cellSize + leftOffset,
-                            (promptRow-1) * cellSize + topOffset,
-                            cellSize*10, cellSize*10, 0);
+  promptRow = std::min((HEIGHT - 1) - b.getHeight() - 2,
+                       HEIGHT - 1 - 4);
     
   drawText(promptRow, 0, "Next:");
+  
   for(auto c : b.getArea()){
     int row = (c.row - b.getRow()) + (HEIGHT - 2);
     int col = WIDTH + 2 + c.col;
@@ -90,12 +89,18 @@ int GraphicsDisplay::getColour(Content c){
   } return Xwindow::White;
 }
 
+void GraphicsDisplay::showGameOver(){
+  drawText((promptRow + 3)/2, 1, "Game over!");
+}
+
 ostream &operator<<(std::ostream &out, GraphicsDisplay &gd){
-  for (int row=HEIGHT-1; row>=0; row--){
-    for (int col=0; col<WIDTH; col++){
-      int color = gd.getColour(  (*(gd.board))[row][col].content );
-      gd.drawCell(row, col, color);
-    }
-  } return out;
+  for (int row=HEIGHT-1; row>=0; row--)
+    for (int col=0; col<WIDTH; col++)
+      if(gd.prev.size() == 0 ||
+         (*(gd.board))[row][col].content != gd.prev[row][col].content)
+        gd.drawCell(row, col, gd.getColour((*(gd.board))[row][col].content));
+  
+  gd.prev = *(gd.board);
+  return out;
 }
 

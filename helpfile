@@ -8,6 +8,8 @@ Usage of the command interpreter. Command syntax:
             | clockwise | counterlcockwise
             | drop
             | levelup | leveldown
+            | random | norandom fileName
+            | sequence fileName
             | blockShape
             | restart
             | hint
@@ -32,6 +34,9 @@ For primitive commands:
   drop - Drops the current block
   levelup, leveldown - Increases/decreases difficulty
   blockShape - Changes the shape of the current block to the one specified in the command
+  random - Enables randomisation for levels 3 and 4. Enabled by default
+  norandom fileName - Disables randomisation for levels 3 and 4. Loads blocks from fileName as specified
+  sequence fileName - Executes sequence of commands found in fileName
   restart - Clears current score and board. Restarts game
   hint - Obtains a hint that the user can place the block. Hint algorithm: generate a location where
          placing the current block would result in the minimum overall height.

@@ -4,7 +4,9 @@
 #include "type.h"
 
 class ScoreCounter {
+  // the variable to record the maxmium score
   int maxSoFar = 0;
+  // the variable to record the total score in the game
   int totalScore = 0;
  public:
   void clear();                           // totalScore back to 0

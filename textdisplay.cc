@@ -13,33 +13,33 @@ std::ostream &operator<<(std::ostream &out, TextDisplay &td){
   out << "  ";
   for (int col=0; col<WIDTH; col++) out << col % 10;
   out << endl;
-  cout << " +-----------" << endl;
+  out << " +-----------" << endl;
     
   for (int row=0; row<HEIGHT; row++){
     out << row % 10 << "|";
     for (int col=0; col<WIDTH; col++){
       switch ( (*(td.board))[row][col].content ) {
-        case Content::Empty : cout << " "; break;
-        case Content::Extra : cout << "*"; break;
-        case Content::Hint : cout << "?"; break;
-        case Content::I : cout << "I"; break;
-        case Content::J : cout << "J"; break;
-        case Content::L : cout << "L"; break;
-        case Content::T : cout << "T"; break;
-        case Content::O : cout << "O"; break;
-        case Content::S : cout << "S"; break;
-        case Content::Z : cout << "Z"; break;
+        case Content::Empty : out << " "; break;
+        case Content::Extra : out << "*"; break;
+        case Content::Hint : out << "?"; break;
+        case Content::I : out << "I"; break;
+        case Content::J : out << "J"; break;
+        case Content::L : out << "L"; break;
+        case Content::T : out << "T"; break;
+        case Content::O : out << "O"; break;
+        case Content::S : out << "S"; break;
+        case Content::Z : out << "Z"; break;
       }
     }
-    cout << endl;
+    out << endl;
   }
-  cout << " +-----------" << endl;
+  out << " +-----------" << endl;
   for (int row=0; row<HEIGHT; row++){
     for (int col=0; col<WIDTH; col++){
             
-      // if the cell is temperary occuped by content (hint or currentBlock)
-      if ( (*td.board)[row][col].temperary ){
-        (*td.board)[row][col].temperary = false;
+      // if the cell is temporarily occuped by content (hint or currentBlock)
+      if ( (*td.board)[row][col].temp ){
+        (*td.board)[row][col].temp = false;
         (*td.board)[row][col].content = Content::Empty;
       }
     }

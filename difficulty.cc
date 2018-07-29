@@ -22,7 +22,7 @@ bool Difficulty::validPosition(Block b){
         
     if (row < 0 || row >= HEIGHT || col < 0 || col >= WIDTH ||
         ((*board)[row][col].content != Content::Empty &&
-         !(*board)[row][col].temperary))
+         !(*board)[row][col].temp))
       return false;        
   } return true;
 }

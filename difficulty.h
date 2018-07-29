@@ -27,10 +27,11 @@ class Difficulty {
   virtual Block cwRotate(Block b);
     
  public:
+  // default ctor
   Difficulty();
   Difficulty(std::vector <std::vector <Cell>> * bd,
              std::string loadPath = "sequence.txt");
-    
+  // virtual function for different level, makes the new block to be pure virtual and make the class abstract
   virtual Block newBlock() = 0;
   virtual Block rotateClock(Block b);
   virtual Block rotateCounter(Block b);

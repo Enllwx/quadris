@@ -7,10 +7,17 @@
 #include <vector>
 #include <memory>
 
+
+// forward declaration avoiding cyclic dependency
 class Grid;
+
+
 class HintGenerator{
+  // block to try for generating the hint
   Block block;
+  // the smart pointer to give the dificulty of the level for using the difficulty right now
   std::shared_ptr <Difficulty> theLevel;
+  // The board to observe
   std::vector <std::vector <Cell>> * board;
     
   static const int MAX_DEPTH = 1024;

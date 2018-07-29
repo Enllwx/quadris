@@ -33,7 +33,7 @@ int interpret(string input);
 void help();
 
 // Returns 0b[primitive?][show_output?][success?]
-int interpretPrimitive(vector<string> command){
+int interpretPrimitive(vector<string> command){  
   if(command[0] == "left"){ g->mutate(Move::Left); return PRIMITIVE | OUTPUT | SUCCESS; }
   if(command[0] == "right"){ g->mutate(Move::Right); return PRIMITIVE | OUTPUT | SUCCESS; }
   if(command[0] == "down"){ g->mutate(Move::Down); return PRIMITIVE | OUTPUT | SUCCESS; }
@@ -74,7 +74,7 @@ int interpretPrimitive(vector<string> command){
     try{
       std::ifstream reader(command[1]);
       string s = "";
-      while(getline(cin, s)){
+      while(getline(reader, s)){
         if(!(interpret(s) & SUCCESS)){
           cout << "  Failed executing command \"" << s << "\"in file " << command[1] << endl;
           return PRIMITIVE | OUTPUT | FAILURE;
@@ -130,7 +130,7 @@ int interpret(int repetition, vector<string> command){//, Grid g){
     if(command[0] == "def"){ // Command binding
       if(command.size() == 1){
         cout << "  Macro binding must have a name." << endl;
-        return false;
+        return NOT_PRIMITIVE | NO_OUTPUT | FAILURE;
       }
       string keyword = command[1];
       command.erase(command.begin());
@@ -139,32 +139,35 @@ int interpret(int repetition, vector<string> command){//, Grid g){
       // Null definitions
       if(command.size() == 0){
         cout << "  Macro binding must be non-empty for macro: " << keyword << endl;
-        return false;
+        return NOT_PRIMITIVE | NO_OUTPUT | FAILURE;
       }
       
       // Rebinding keywords
       if(keyword == "def"){
         cout << "  Cannot create binding for keyword def" << endl;
-        return false;
+        return NOT_PRIMITIVE | NO_OUTPUT | FAILURE;
       }
       for(auto s : command)
         if(s == "def"){
           cout << "  Cannot create binding for keyword def" << endl;
-          return false;
+          return NOT_PRIMITIVE | NO_OUTPUT | FAILURE;
         }
       
       aliases[keyword] = command;
       cout << "  Macro " << keyword << " is now bound to: ";
       for(auto s : command) cout << s << "  ";
       cout << endl;
-      return false;
+      return NOT_PRIMITIVE | NO_OUTPUT | FAILURE;
     }
-
+    
     int prevExit = 0;
     for(int r = 0; r < repetition; ++r){
       // Checks if command is primitive
       int checkPrimitive = interpretPrimitive(command);
-      if(checkPrimitive & PRIMITIVE) return checkPrimitive;
+      if(checkPrimitive & PRIMITIVE){
+        prevExit = checkPrimitive;
+        continue;
+      }
       
       // Sees if command is uniquely defined
       vector<string> suggestions, definition;
@@ -178,7 +181,7 @@ int interpret(int repetition, vector<string> command){//, Grid g){
       switch(suggestions.size()){
         case 0: // Undefined command
           cout << "  Undefined command " << command[0] << endl;
-          return false;
+          return NOT_PRIMITIVE | NO_OUTPUT | FAILURE;
         case 1: // Uniquely defined command
           if(definition.size() == 0) definition.emplace_back(suggestions[0]);
           for(auto s : definition){
@@ -191,7 +194,7 @@ int interpret(int repetition, vector<string> command){//, Grid g){
               return prevExit;
             }
           }
-          break;
+          continue;
         default: // Cannot uniquely determine command
           cout << "  Multiple possibilities for " << command[0] <<". Suggestions: " << endl;
           cout << "    ";
@@ -282,26 +285,22 @@ int main(int argc, const char* argv[]){
   // Initialises grid
   g->init(defaultPath, startLevel);
 
-  if(!textOnly){
-    g->setupGraphic();
-  }
-  
+  if(!textOnly) g->setupGraphic();
+
   cout << *g;
   
   cout << endl << "Enter command (\"help\" for instructions and \"quit\" to quit): ";
   while(getline(cin, input)){
     if(input == "quit") break;
 
-    if(interpret(input) & OUTPUT){
-      cout << *g;
-    }
+    if(interpret(input) & OUTPUT) cout << *g;
     
     if(g->gameOver()){
       cout << "  Sorry, game over. Press any key to continue..." << endl;
       g->clear();
-
-      getchar();
       
+      getchar();
+
       cout << *g;
     }   cout << endl << "Enter command (\"help\" for instructions and \"quit\" to quit): ";
   }

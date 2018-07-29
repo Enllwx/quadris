@@ -17,7 +17,7 @@ class Grid : public std::enable_shared_from_this<Grid> {
   // the game board
   std::vector<std::vector <Cell>> board;
 
-  // other classes inside of grid
+  // other classes inside of grid, forward declaration
   BlockHolder theHolder;
   TextDisplay td;
   ScoreCounter score;

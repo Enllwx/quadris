@@ -72,7 +72,7 @@ Cell HintGenerator::generateHint(Block b, int depth){
     int row = area[i].row;
     int col = area[i].col;
     if((*board)[row+1][col].content != Content::Empty &&
-       !(*board)[row+1][col].temperary){
+       !(*board)[row+1][col].temp){
       return setMemoisation(b_Row, b_Col, b_Rotation, temp);
     }
   }

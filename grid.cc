@@ -136,7 +136,7 @@ void Grid::updateBoard(){
     int row = currentArea[i].row;
     int col = currentArea[i].col;
     board[row][col].content = currentArea[i].content;
-    board[row][col].temperary = true;
+    board[row][col].temp = true;
   }
     
   if (showHint){
@@ -147,7 +147,7 @@ void Grid::updateBoard(){
       int row = hintArea[i].row;
       int col = hintArea[i].col;
       board[row][col].content = Content::Hint;
-      board[row][col].temperary = true;
+      board[row][col].temp = true;
     }
     showHint = false;
   }
@@ -162,7 +162,7 @@ void Grid::clear(){
       board[row][col].rotation = -1;
       board[row][col].level = Level::lvl0;
       board[row][col].numBlock = -1;
-      board[row][col].temperary = false;
+      board[row][col].temp = false;
     }
   }
   score.clear();
@@ -183,11 +183,14 @@ Block Grid::getHint(){
 // gameOver() determine if the game is over
 bool Grid::gameOver(){
   vector<Cell> area = theHolder.getCurrentBlock().getArea();
-    
-  for(int i=0; i<4; ++i){
-    int row = area[i].row, col = area[i].col;
-    if (board[row][col].content != Content::Empty)
-      return true;
+
+  if(theHolder.getCurrentBlock().getRow() == 3){
+    for(size_t i=0; i<area.size(); ++i){
+      int row = area[i].row + 1, col = area[i].col;
+      if (!board[row][col].temp &&
+          board[row][col].content != Content::Empty)
+        return true;
+    }
   }
     
   return false;
@@ -232,6 +235,7 @@ ostream &operator<<(ostream &out, Grid &g){
     (g.gd)->showInfo(lvl_num, (g.score).getScore(), (g.score).getHighScore());
     out << *(g.gd);
     (g.gd)->showNextBlock(g.getNextBlock());
+    if(g.gameOver()) (g.gd)->showGameOver();
   }
   out << lvl_num << endl;
   out << g.score;
@@ -252,5 +256,3 @@ ostream &operator<<(ostream &out, Grid &g){
 
 string Grid::getDefaultLoadPath(){ return defaultLoadPath; }
 void Grid::setLoadPath(string path){ theHolder.setLoadPath(path); }
-
-
